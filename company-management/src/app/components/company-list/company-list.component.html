@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <h2>Company List</h2>
+
+  <button class="btn btn-success mb-3" (click)="addCompany()">Add New Company</button>
+
+  <app-company-form 
+    *ngIf="showForm"
+    [company]="selectedCompany"
+    (formSubmit)="saveCompany($event)"
+    (cancel)="cancelForm()">
+  </app-company-form>
+
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Exchange</th>
+        <th>Ticker</th>
+        <th>ISIN</th>
+        <th>Website</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of companies">
+        <td>{{ company.name }}</td>
+        <td>{{ company.exchange }}</td>
+        <td>{{ company.ticker }}</td>
+        <td>{{ company.isin }}</td>
+        <td><a *ngIf="company.website" [href]="company.website" target="_blank">{{ company.website }}</a></td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2" (click)="editCompany(company)">Edit</button>
+          <button class="btn btn-danger btn-sm" 
+            (click)="deleteCompany(company.id!)" 
+            [disabled]="selectedCompany?.id === company.id">
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

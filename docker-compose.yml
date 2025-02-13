@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  api:
+    build: 
+      context: ./CompanyApi
+      dockerfile: Dockerfile
+    ports:
+      - "5168:5168"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5168 
+
+    
+  frontend:
+    image: angular-app
+    build:
+      context: ./company-management  
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"  # Serves Angular on port 8080
+    volumes:
+      - ./company-management/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
