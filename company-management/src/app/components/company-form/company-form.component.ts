@@ -19,7 +19,10 @@ export class CompanyFormComponent {
     name: new FormControl('', Validators.required),
     exchange: new FormControl('', Validators.required),
     ticker: new FormControl('', Validators.required),
-    isin: new FormControl('', Validators.required),
+    isin: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[A-Za-z]{2}[A-Za-z0-9]+$/)
+    ]),
     website: new FormControl('')
   });
 

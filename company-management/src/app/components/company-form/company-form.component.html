@@ -16,7 +16,11 @@
     <div class="mb-3">
       <label for="isin" class="form-label">ISIN</label>
       <input id="isin" class="form-control" formControlName="isin" />
-    </div>
+      <div *ngIf="companyForm.controls['isin'].invalid && companyForm.controls['isin'].touched" class="text-danger">
+        <small *ngIf="companyForm.controls['isin'].errors?.['required']">ISIN is required.</small>
+        <small *ngIf="companyForm.controls['isin'].errors?.['pattern']">ISIN must start with two letters.</small>
+      </div>      
+    </div>    
     <div class="mb-3">
       <label for="website" class="form-label">Website</label>
       <input id="website" class="form-control" formControlName="website" />
